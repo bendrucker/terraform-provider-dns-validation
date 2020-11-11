@@ -1,8 +1,8 @@
 package main
 
 import (
+	"github.com/bendrucker/terraform-provider-dns-validation/internal/provider"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/plugin"
-	"github.com/hashicorp/terraform-provider-scaffolding/internal/provider"
 )
 
 var (

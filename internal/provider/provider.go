@@ -12,7 +12,7 @@ func New(version string) func() *schema.Provider {
 	return func() *schema.Provider {
 		return &schema.Provider{
 			ResourcesMap: map[string]*schema.Resource{
-				"dns_validation_a_record_set": resourceDNSValidationARecordSet(),
+				"dns_address_validation": resourceDNSAddressValidation(),
 			},
 			ConfigureContextFunc: configure(version),
 		}

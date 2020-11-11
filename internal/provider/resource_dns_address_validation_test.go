@@ -11,7 +11,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-func TestAccResourceDNSValidationARecordSet(t *testing.T) {
+func TestAccResourceDNSAddressValidation(t *testing.T) {
 	resource.UnitTest(t, resource.TestCase{
 		PreCheck: func() {
 			testAccPreCheck(t)
@@ -19,13 +19,13 @@ func TestAccResourceDNSValidationARecordSet(t *testing.T) {
 		ProviderFactories: providerFactories,
 		Steps: []resource.TestStep{
 			{
-				Config: testAccResourceDNSValidationARecordSet,
+				Config: testAccResourceDNSAddressValidation,
 			},
 		},
 	})
 }
 
-func TestAccResourceDNSValidationARecordSet_addresses(t *testing.T) {
+func TestAccResourceDNSAddressValidation_addresses(t *testing.T) {
 	resource.UnitTest(t, resource.TestCase{
 		PreCheck: func() {
 			testAccPreCheck(t)
@@ -49,13 +49,13 @@ func TestAccResourceDNSValidationARecordSet_addresses(t *testing.T) {
 		},
 		Steps: []resource.TestStep{
 			{
-				Config: testAccResourceDNSValidationARecordSet_addresses,
+				Config: testAccResourceDNSAddressValidation_addresses,
 			},
 		},
 	})
 }
 
-func TestAccResourceDNSValidationARecordSet_addresses_invalid(t *testing.T) {
+func TestAccResourceDNSAddressValidation_addresses_invalid(t *testing.T) {
 	resource.UnitTest(t, resource.TestCase{
 		PreCheck: func() {
 			testAccPreCheck(t)
@@ -79,28 +79,28 @@ func TestAccResourceDNSValidationARecordSet_addresses_invalid(t *testing.T) {
 		},
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccResourceDNSValidationARecordSet_addresses_invalid,
+				Config:      testAccResourceDNSAddressValidation_addresses_invalid,
 				ExpectError: regexp.MustCompile(regexp.QuoteMeta("wrong addresses, expected: [2.3.4.5], got: [1.2.3.4]")),
 			},
 		},
 	})
 }
 
-const testAccResourceDNSValidationARecordSet = `
-resource "dns_validation_a_record_set" "terraform" {
+const testAccResourceDNSAddressValidation = `
+resource "dns_address_validation" "terraform" {
   name = "terraform.io"
 }
 `
 
-const testAccResourceDNSValidationARecordSet_addresses = `
-resource "dns_validation_a_record_set" "terraform" {
+const testAccResourceDNSAddressValidation_addresses = `
+resource "dns_address_validation" "terraform" {
 	name = "terraform.fake"
 	addresses = ["1.2.3.4"]
 }
 `
 
-const testAccResourceDNSValidationARecordSet_addresses_invalid = `
-resource "dns_validation_a_record_set" "terraform" {
+const testAccResourceDNSAddressValidation_addresses_invalid = `
+resource "dns_address_validation" "terraform" {
 	name = "terraform.fake"
 	addresses = ["2.3.4.5"]
 

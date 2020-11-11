@@ -14,11 +14,11 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-func resourceDNSValidationARecordSet() *schema.Resource {
+func resourceDNSAddressValidation() *schema.Resource {
 	return &schema.Resource{
-		CreateContext: resourceDNSValidationARecordSetCreate,
-		ReadContext:   resourceDNSValidationARecordSetRead,
-		DeleteContext: resourceDNSValidationARecordSetDelete,
+		CreateContext: resourceDNSAddressValidationCreate,
+		ReadContext:   resourceDNSAddressValidationRead,
+		DeleteContext: resourceDNSAddressValidationDelete,
 
 		Schema: map[string]*schema.Schema{
 			"name": {
@@ -43,7 +43,7 @@ func resourceDNSValidationARecordSet() *schema.Resource {
 	}
 }
 
-func resourceDNSValidationARecordSetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDNSAddressValidationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	resolver := meta.(Resolver)
 	name := d.Get("name").(string)
 
@@ -85,10 +85,10 @@ func resourceDNSValidationARecordSetCreate(ctx context.Context, d *schema.Resour
 
 	d.SetId(name)
 
-	return resourceDNSValidationARecordSetRead(ctx, d, meta)
+	return resourceDNSAddressValidationRead(ctx, d, meta)
 }
 
-func resourceDNSValidationARecordSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDNSAddressValidationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	resolver := meta.(Resolver)
 
 	name := d.Get("name").(string)
@@ -117,7 +117,7 @@ func resourceDNSValidationARecordSetRead(ctx context.Context, d *schema.Resource
 	return nil
 }
 
-func resourceDNSValidationARecordSetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDNSAddressValidationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	return nil
 }
 

@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"strings"
+	"time"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
@@ -35,11 +37,14 @@ func resourceDNSValidationARecordSet() *schema.Resource {
 				Description: "Set of expected addresses that the record should return",
 			},
 		},
+		Timeouts: &schema.ResourceTimeout{
+			Create: schema.DefaultTimeout(30 * time.Second),
+		},
 	}
 }
 
 func resourceDNSValidationARecordSetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	resolver := meta.(*net.Resolver)
+	resolver := meta.(Resolver)
 	name := d.Get("name").(string)
 
 	err := resource.RetryContext(ctx, d.Timeout(schema.TimeoutCreate), func() *resource.RetryError {
@@ -65,10 +70,10 @@ func resourceDNSValidationARecordSetCreate(ctx context.Context, d *schema.Resour
 		for i, addr := range addrs {
 			addresses[i] = addr
 		}
-		actual := schema.NewSet(schema.HashString, addresses)
+		actual := schema.NewSet(expected.F, addresses)
 
 		if !expected.Equal(actual) {
-			return resource.RetryableError(fmt.Errorf("wrong addresses, expected: %v, got: %v", expected, actual))
+			return resource.RetryableError(fmt.Errorf("wrong addresses, expected: %s, got: %s", addressesString(expected), addressesString(actual)))
 		}
 
 		return nil
@@ -84,7 +89,7 @@ func resourceDNSValidationARecordSetCreate(ctx context.Context, d *schema.Resour
 }
 
 func resourceDNSValidationARecordSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	resolver := meta.(*net.Resolver)
+	resolver := meta.(Resolver)
 
 	name := d.Get("name").(string)
 	addrs, err := resolver.LookupHost(ctx, name)
@@ -106,7 +111,7 @@ func resourceDNSValidationARecordSetRead(ctx context.Context, d *schema.Resource
 		for i, addr := range addrs {
 			addresses[i] = addr
 		}
-		d.Set("addresses", schema.NewSet(schema.HashString, addresses))
+		d.Set("addresses", addresses)
 	}
 
 	return nil
@@ -114,4 +119,12 @@ func resourceDNSValidationARecordSetRead(ctx context.Context, d *schema.Resource
 
 func resourceDNSValidationARecordSetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	return nil
+}
+
+func addressesString(set *schema.Set) string {
+	addrs := make([]string, set.Len())
+	for i, v := range set.List() {
+		addrs[i] = v.(string)
+	}
+	return "[" + strings.Join(addrs, ",") + "]"
 }

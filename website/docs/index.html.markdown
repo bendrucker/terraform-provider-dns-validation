@@ -1,25 +1,19 @@
 ---
-layout: "scaffolding"
-page_title: "Provider: Scaffolding"
-sidebar_current: "docs-scaffolding-index"
-description: |-
-  Terraform provider scaffolding.
+layout: "dns-validation"
+page_title: "Provider: DNS Validaton"
 ---
 
-# Scaffolding Provider
+# DNS Validation Provider
 
-Use this paragraph to give a high-level overview of your provider, and any configuration it requires.
-
-Use the navigation to the left to read about the available resources.
+The DNS validation provider does not create actual resources. It performs DNS validation, querying records to ensure they exist and resolve the expected records. This allows Terraform to create DNS records and await their propagation before using them in dependent resources.
 
 ## Example Usage
 
 ```hcl
-provider "scaffolding" {
-}
+provider "dns-validation" {}
 
-# Example resource configuration
-resource "scaffolding_resource" "example" {
+resource "dns_address_validation" "example" {
+  provider = dns-validation
   # ...
 }
 ```

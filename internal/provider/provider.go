@@ -10,15 +10,12 @@ import (
 
 func New(version string) func() *schema.Provider {
 	return func() *schema.Provider {
-		p := &schema.Provider{
+		return &schema.Provider{
 			ResourcesMap: map[string]*schema.Resource{
 				"dns_validation_a_record_set": resourceDNSValidationARecordSet(),
 			},
+			ConfigureContextFunc: configure(version),
 		}
-
-		p.ConfigureContextFunc = configure(version)
-
-		return p
 	}
 }
 

@@ -1,5 +1,7 @@
 # Terraform Provider: DNS Validation
 
+[![tests workflow status](https://github.com/bendrucker/terraform-provider-dns-validation/workflows/tests/badge.svg?branch=master)](https://github.com/bendrucker/terraform-provider-dns-validation/actions?query=workflow%3Atests) [![terraform registry](https://img.shields.io/badge/terraform-registry-623CE4)](https://registry.terraform.io/providers/bendrucker/dns-validation)
+
 ## Requirements
 
 *	[Terraform](https://www.terraform.io/downloads.html) >= 0.12.x

@@ -4,14 +4,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
     - name: Install Go
       uses: actions/setup-go@v3
       with:
-        go-version: 1.17
+        go-version-file: go.mod
     - uses: hashicorp/setup-terraform@v2
       with:
         terraform_wrapper: false
-    - name: Checkout code
-      uses: actions/checkout@v3
+
     - name: Run acceptance tests
       run: make testacc

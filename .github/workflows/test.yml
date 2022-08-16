@@ -4,6 +4,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
     - name: Install Go
       uses: actions/setup-go@v3
       with:
@@ -11,7 +13,6 @@ jobs:
     - uses: hashicorp/setup-terraform@v2
       with:
         terraform_wrapper: false
-    - name: Checkout code
-      uses: actions/checkout@v3
+
     - name: Run acceptance tests
       run: make testacc

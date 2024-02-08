@@ -3,7 +3,7 @@ module github.com/bendrucker/terraform-provider-dns-validation
 go 1.21
 
 require (
-	github.com/foxcpp/go-mockdns v1.0.0
+	github.com/foxcpp/go-mockdns v1.1.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.32.0
 )
 
@@ -38,7 +38,7 @@ require (
 	github.com/hashicorp/yamux v0.1.1 // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
-	github.com/miekg/dns v1.1.25 // indirect
+	github.com/miekg/dns v1.1.57 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/go-testing-interface v1.14.1 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.0 // indirect
@@ -56,6 +56,7 @@ require (
 	golang.org/x/net v0.18.0 // indirect
 	golang.org/x/sys v0.16.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
+	golang.org/x/tools v0.15.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/genproto v0.0.0-20231106174013-bbf56f31fb17 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20231106174013-bbf56f31fb17 // indirect

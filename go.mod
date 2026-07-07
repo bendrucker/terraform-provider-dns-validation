@@ -2,7 +2,7 @@ module github.com/bendrucker/terraform-provider-dns-validation
 
 go 1.25.8
 
-toolchain go1.26.4
+toolchain go1.26.5
 
 require (
 	github.com/foxcpp/go-mockdns v1.2.0
